@@ -1,0 +1,6 @@
+new-session -A -d -s 'auth'
+send-keys -t auth 'liljwty_proxy' C-m 
+rename-window -t auth liljwty
+new-window -t auth -n aws/mongo
+send-keys -t auth 'fq_auth' C-m
+

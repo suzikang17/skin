@@ -1,0 +1,3 @@
+- restructure folders inside lua.
+    might need to figure how XDG_CONFIG is set
+- figure out if space m p is actually formatting the selection

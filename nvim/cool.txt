@@ -1,0 +1,3 @@
+
+for converting imports to es6:
+'<,'>s/ = require(\(.*'\))/ from \1'<,'>s/ = require((.*'))/ from 
