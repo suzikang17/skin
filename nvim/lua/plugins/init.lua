@@ -1,21 +1,9 @@
 -- plugs that dont require extra setup
 return {
-  {
-    'nvim-telescope/telescope-file-browser.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
-  },
+
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
-  { 'folke/neodev.nvim', opts = {}, config = true },
-  -- Useful plugin to show you pending keybinds.
-  {
-    'folke/which-key.nvim',
-    opts = {},
-  },
 
   -- Adds git related signs to the gutter, as well as utilities for managing changes
   {
@@ -37,6 +25,18 @@ return {
     },
   },
 
+  -- Detect tabstop and shiftwidth automatically
+  'tpope/vim-sleuth',
+
+  -- lsp for nvim config
+  { 'folke/neodev.nvim', opts = {}, config = true },
+
+  -- Useful plugin to show you pending keybinds.
+  {
+    'folke/which-key.nvim',
+    opts = {},
+  },
+
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -48,55 +48,30 @@ return {
         component_separators = '|',
         section_separators = '',
       },
-    },
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = {
-        char = '┊',
+      sections = {
+        lualine_a = {
+          { 'filename', path = 3 },
+        },
       },
-    },
-  },
-
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
-
-  -- myplugins
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
     },
   },
   { 'akinsho/toggleterm.nvim', version = '*', config = true },
   {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    opts = {}, -- this is equalent to setup({}) function
-  },
-  {
-    'nvim-tree/nvim-tree.lua',
-    keys = {
-      { '<leader>nt', '<cmd>NvimTreeToggle<cr>', desc = 'Open NvimTree' },
+    'folke/zen-mode.nvim',
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
     },
-    version = '*',
-    lazy = false,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function() require('nvim-tree').setup({}) end,
   },
+  -- {
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   main = 'ibl',
+  --   opts = {
+  --     indent = {
+  --       char = '┊',
+  --     },
+  --   },
+  -- },
 }
