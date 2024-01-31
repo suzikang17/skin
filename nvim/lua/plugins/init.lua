@@ -44,7 +44,7 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -52,6 +52,8 @@ return {
         lualine_a = {
           { 'filename', path = 3 },
         },
+        lualine_c = { 'buffers' },
+        lualine_x = { 'mode', 'fileformat', 'filetype' },
       },
     },
   },
