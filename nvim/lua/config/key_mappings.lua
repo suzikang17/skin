@@ -18,6 +18,13 @@ vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- file explorer
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
+-- jk -> esc
+vim.keymap.set('i', 'jk', '<esc>')
+
+-- hard H and L (left and rights)
+vim.keymap.set('n', 'L', '$')
+vim.keymap.set('n', 'H', '^')
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -31,11 +38,11 @@ vim.keymap.set('n', 'j', 'v:count == 0 ? \'gj\' : \'j\'', { expr = true, silent 
 -- [[ Copy path to clipboard ]]
 vim.keymap.set('n', '<Leader>cp', ':let @+ = expand("%")<CR>')
 
--- [[ Resizing Splits ]]
-vim.keymap.set('n', '<C-l>', ':vertical resize +3<CR>')
-vim.keymap.set('n', '<C-h>', ':vertical resize -3<CR>')
-vim.keymap.set('n', '<C-k>', ':resize +3<CR>')
-vim.keymap.set('n', '<C-j>', ':resize -3<CR>')
+-- [[ Resizing Splits ]] only direction when in top left
+vim.keymap.set('n', '<a-l>', ':vertical resize +3<CR>')
+vim.keymap.set('n', '<a-h>', ':vertical resize -3<CR>')
+vim.keymap.set('n', '<a-j>', ':resize +3<CR>')
+vim.keymap.set('n', '<a-k>', ':resize -3<CR>')
 
 -- Swap split orientation
 -- [[ - -> | ]]

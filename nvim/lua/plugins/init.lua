@@ -1,35 +1,25 @@
 -- plugs that dont require extra setup
 return {
-
-  -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-
-  -- Adds git related signs to the gutter, as well as utilities for managing changes
+  change_detection = { notify = false },
+  { 'echasnovski/mini.nvim', version = false, config = function() require('mini.surround').setup() end },
+  { 'github/copilot.vim' },
+  { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow' },
   {
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-      end,
-    },
+    'folke/zen-mode.nvim',
+    keys = { '<leader>zm', '<cmd>ZenMode', desc = 'Toggle Zen Mode' },
+    opts = {},
+  },
+  { 'folke/neodev.nvim', opts = {} },
+  -- { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },
+  'nvim-pack/nvim-spectre',
+  'szw/vim-maximizer',
+  {
+    'stevearc/dressing.nvim',
+    config = true,
   },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
-  -- lsp for nvim config
-  { 'folke/neodev.nvim', opts = {}, config = true },
 
   -- Useful plugin to show you pending keybinds.
   {
@@ -44,7 +34,7 @@ return {
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'gruvbox',
+        -- theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },

@@ -16,11 +16,11 @@ return {
       { '<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame' },
       { '<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction' },
 
-      { 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition' },
+      { 'gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition' },
       { 'gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences' },
-      { 'gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation' },
-      { 'gT', vim.lsp.buf.type_definition, 'Type [D]efinition' },
-      { '<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols' },
+      -- { 'gI', require('telescope.builtin').vim.lsp.buf.implementation, '[G]oto [I]mplementation' },
+      -- { 'gT', require('telescope.builtin').vim.lsp.buf.type_definition, 'Type [D]efinition' },
+      { '<leader>ds', require('telescope.builtin').lsp_document_symbols, 'search symbols in current file' },
       { '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols' },
 
       -- See `:help K` for why this keymap
@@ -91,6 +91,9 @@ return {
       on_attach = on_attach,
       settings = { -- custom settings for lua
         Lua = {
+          -- completion = {
+          --   callSnippet = 'Replace',
+          -- },
           -- make the language server recognize "vim" global
           diagnostics = {
             globals = { 'vim' },
