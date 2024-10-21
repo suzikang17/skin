@@ -1,12 +1,19 @@
 -- plugs that dont require extra setup
 return {
   change_detection = { notify = false },
-  { 'echasnovski/mini.nvim', version = false, config = function() require('mini.surround').setup() end },
-  { 'github/copilot.vim' },
+  {
+  "folke/persistence.nvim",
+  event = "BufReadPre", -- this will only start session saving when an actual file was opened
+  opts = {
+    -- add any custom options here
+  }
+},
+  { 'mrjones2014/smart-splits.nvim' },
+  { 'zbirenbaum/copilot.lua', config = true },
   { 'ellisonleao/glow.nvim', config = true, cmd = 'Glow' },
   {
     'folke/zen-mode.nvim',
-    keys = { '<leader>zm', '<cmd>ZenMode', desc = 'Toggle Zen Mode' },
+    keys = { { '<C-w>z', '<cmd>ZenMode<cr>', desc = 'Toggle Zen Mode' } },
     opts = {},
   },
   { 'folke/neodev.nvim', opts = {} },

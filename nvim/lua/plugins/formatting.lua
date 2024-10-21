@@ -1,7 +1,8 @@
 return {
   'stevearc/conform.nvim',
   lazy = true,
-  event = { 'BufReadPre', 'BufNewFile' }, -- to disable, comment this out
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
   config = function()
     local conform = require('conform')
 
@@ -9,9 +10,8 @@ return {
       formatters_by_ft = {
         javascript = { 'eslint_d' },
         -- typescript = { "prettier" },
-        -- javascriptreact = { "prettier" },
+        javascriptreact = { 'eslint_d' },
         -- typescriptreact = { "prettier" },
-        -- svelte = { "prettier" },
         css = { 'prettier' },
         html = { 'prettier' },
         json = { 'prettier' },
@@ -21,20 +21,20 @@ return {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 1000,
-      },
+      -- format_on_save = {
+      --   lsp_fallback = false,
+      --   async = false,
+      --   timeout_ms = 1000,
+      -- },
     })
 
     vim.keymap.set(
       { 'n', 'v' },
-      '<leader>mp',
+      '<leader>pp',
       function()
         conform.format({
           lsp_fallback = true,
-          async = false,
+          async = true,
           timeout_ms = 1000,
         })
       end,

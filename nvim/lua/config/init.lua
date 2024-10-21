@@ -4,8 +4,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.listchars = 'space:·'
-vim.o.list = true
+vim.g.netrw_liststyle = 3
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
@@ -46,6 +45,9 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+-- Char count line guide
+vim.opt.colorcolumn = '80'
+
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
@@ -67,5 +69,13 @@ vim.o.cursorline = true
 -- Window splits
 vim.o.splitbelow = true
 vim.o.splitright = true
+vim.api.nvim_create_autocmd('VimLeave',{callback=function ()
+    io.stdout:write("\027]111;;\027\\")
+end})
+vim.api.nvim_create_autocmd('ColorScheme',{callback=function ()
+    local bg=vim.api.nvim_get_hl(0,{name='Normal',link=false}).bg
+    io.stdout:write(("\027]11;#%06x\027\\"):format(bg))
+end})
 
 require('config.key_mappings')
+

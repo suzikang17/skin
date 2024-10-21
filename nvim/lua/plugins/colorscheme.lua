@@ -1,34 +1,42 @@
 return {
   -- {
-  --   "ellisonleao/gruvbox.nvim",
-  --   priority = 1000,
+  --   'deparr/tairiki.nvim',
+  --   lazy = false,
+  --   priority = 1000, -- only necessary if you use tairiki as default theme
   --   config = function()
-  --     vim.cmd [[colorscheme gruvbox]]
+  --     require('tairiki').setup({
+  --       -- optional configuration here
+  --     })
+  --     require('tairiki').load() -- only necessary to use as default theme, has same behavior as ':colorscheme tairiki'
   --   end,
-  -- },
-  --
-  -- {
-  --   -- Theme inspired by Atom
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   config = function() vim.cmd.colorscheme('onedark') end,
   -- },
   -- { 'EdenEast/nightfox.nvim', config = function() vim.cmd.colorscheme('nightfox') end },
-  -- {
-  --   'sainnhe/gruvbox-material',
-  --   priority = 1000,
-  --
-  --   config = function()
-  --     vim.g.gruvbox_material_contrast = 'medium'
-  --     vim.g.gruvbox_material_foreground = 'mix'
-  --     vim.cmd.colorscheme('gruvbox-material')
-  --   end,
-  -- },
   {
-    'sainnhe/everforest',
+    'sainnhe/gruvbox-material',
     priority = 1000,
-    config = function() vim.cmd.colorscheme('everforest') end,
+    config = function()
+      vim.g.gruvbox_material_better_performance = 1
+      -- Fonts
+      vim.g.gruvbox_material_disable_italic_comment = 1
+      vim.g.gruvbox_material_enable_italic = 0
+      vim.g.gruvbox_material_enable_bold = 0
+      -- vim.g.gruvbox_material_transparent_background = 1
+      -- -- Themes
+      vim.g.gruvbox_material_foreground = 'mix'
+      vim.g.gruvbox_material_background = 'hard'
+      vim.g.gruvbox_material_ui_contrast = 'high' -- The contrast of line numbers, indent lines, etc.
+      vim.g.gruvbox_material_float_style = 'dim' -- Background of floating windows
+      vim.cmd('colorscheme gruvbox-material')
+    end,
   },
+
+  -- { 'srcery-colors/srcery-vim', config = function() vim.cmd.colorscheme('srcery') end },
+  -- {
+  --   'eddyekofo94/gruvbox-flat.nvim',
+  --   priority = 1000,
+  --   enabled = true,
+  --   config = function() vim.cmd([[colorscheme gruvbox-flat]]) end,
+  -- },
   -- {
   --   'neanias/everforest-nvim',
   --   version = false,

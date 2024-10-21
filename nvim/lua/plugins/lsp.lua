@@ -25,7 +25,7 @@ return {
 
       -- See `:help K` for why this keymap
       { 'K', vim.lsp.buf.hover, 'Hover Documentation' },
-      { '<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation' },
+      { '<C-K>', vim.lsp.buf.signature_help, 'Signature Documentation' },
 
       -- Lesser used LSP functionality
       { 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration' },

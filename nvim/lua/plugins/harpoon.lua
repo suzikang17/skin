@@ -7,16 +7,17 @@ return {
     'nvim-telescope/telescope.nvim',
   },
   keys = {
-    { '<leader>ha', function() require('harpoon'):list():append() end, desc = 'Mark file with harpoon' },
-    { '<leader>h1', function() require('harpoon'):list():select(1) end, desc = 'Go to harpooned file 1' },
-    { '<leader>h2', function() require('harpoon'):list():select(2) end, desc = 'Go to harpooned file 2' },
-    { '<leader>h3', function() require('harpoon'):list():select(3) end, desc = 'Go to harpooned file 3' },
-    { '<leader>h4', function() require('harpoon'):list():select(4) end, desc = 'Go to harpooned file 4' },
+    { 'h1', function() require('harpoon'):list():select(1) end, desc = 'Go to harpooned file 1' },
+    { 'h2', function() require('harpoon'):list():select(2) end, desc = 'Go to harpooned file 2' },
+    { 'h3', function() require('harpoon'):list():select(3) end, desc = 'Go to harpooned file 3' },
+    { 'h4', function() require('harpoon'):list():select(4) end, desc = 'Go to harpooned file 4' },
   },
   config = function()
-    require('harpoon'):setup()
     local harpoon = require('harpoon')
     harpoon:setup({})
+
+    vim.keymap.set("n", "ha", function() harpoon:list():append() end)
+    vim.keymap.set("n", "ho", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
     -- basic telescope configuration
     local conf = require('telescope.config').values
@@ -38,6 +39,6 @@ return {
         :find()
     end
 
-    vim.keymap.set('n', '<C-e>', function() toggle_telescope(harpoon:list()) end, { desc = 'Open harpoon window' })
+    vim.keymap.set('n', '<M-e>', function() toggle_telescope(harpoon:list()) end, { desc = 'Open harpoon window' })
   end,
 }

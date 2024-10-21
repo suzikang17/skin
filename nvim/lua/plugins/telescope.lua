@@ -1,4 +1,4 @@
--- Fuzzy Finder (files, lsp, etc)
+-- Fuzzy Finder (hjfiles, lsp, etc)
 return {
   -- See `:help telescope` and `:help telescope.setup()`
   {
@@ -8,6 +8,12 @@ return {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       'nvim-tree/nvim-web-devicons',
+      -- {
+      --   'nvim-telescope/telescope-live-grep-args.nvim',
+      --   -- This will not install any breaking changes.
+      --   -- For major updates, this must be adjusted manually.
+      --   version = '^1.0.0',
+      -- },
     },
 
     config = function()
@@ -18,8 +24,11 @@ return {
       -- set telescope defaults
       telescope.setup({
         defaults = {
+          preview = {
+            filesize_limit = 0.1, -- MB
+          },
           -- ignore these files when using telscope file finders
-          file_ignore_patterns = { 'data/', '^package-lock.json' },
+          file_ignore_patterns = { '^package-lock.json', '.git' },
           path_display = { 'truncate ' },
           mappings = {
             i = {
@@ -28,11 +37,11 @@ return {
               ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
               ['<C-u>'] = false,
               ['<C-d>'] = false,
-              ['<S-n>'] = fb_actions.create,
-              ['<S-r>'] = fb_actions.rename,
-              ['<S-m>'] = fb_actions.move,
-              ['<S-c>'] = fb_actions.copy,
-              ['<S-x>'] = fb_actions.remove,
+              ['<C-n>'] = fb_actions.create,
+              ['<C-r>'] = fb_actions.rename,
+              ['<C-y>'] = fb_actions.copy,
+              ['<C-x>'] = fb_actions.remove,
+              -- ['<C-m>'] = fb_actions.move,
             },
           },
         },
@@ -41,15 +50,16 @@ return {
         },
       })
 
+      -- extension time
       telescope.load_extension('fzf')
 
       -- set telescope keymaps
       local keymap = vim.keymap -- for conciseness
+      local builtin = require('telescope.builtin')
+
       local keys = {
-        { '<leader>?', '<cmd>Telescope buffers<cr>', desc = '[?] Find recently opened files' },
-        { '<leader><space>', function() require('telescope.builtin').buffers({}) end, '[ ] find existing buffers' },
         {
-          '<leader>/',
+          '<leader>th',
           function()
             -- You can pass additional configuration to telescope to change theme, layout, etc.
             require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
@@ -59,14 +69,32 @@ return {
           end,
           '[/] fuzzily search in current buffer',
         },
-        { '<leader>fg', function() require('telescope.builtin').git_files({}) end, 'search [g]it [f]iles' },
-        { '<leader>ff', function() require('telescope.builtin').find_files({}) end, '[f]uzzy find [f]iles in cwd' },
-        { '<leader>fsh', function() require('telescope.builtin').help_tags({}) end, '[f]ind [s]earch [h]elp' },
-        { '<leader>fsw', function() require('telescope.builtin').grep_string({}) end, '[f]ind [s]earch current [w]ord under cursor' },
-        { '<leader>fsg', function() require('telescope.builtin').live_grep({}) end, '[fuzzy] [s]earch by [g]rep' },
-        { '<leader>fsd', function() require('telescope.builtin').diagnostics({}) end, '[f]ind [s]earch [d]iagnostics' },
-        { '<leader>fr', '<cmd>Telescope oldfiles<cr>', '[f]ind [r]ecently opened files' },
-        { '<leader>?', '<cmd>Telescope buffers<cr>', '[?] Find recently opened files' },
+        { '<C-f>f', function() builtin.find_files({ no_ignore = true }) end, 'all files in cwd' },
+        { '<C-f>g', function() builtin.git_files({}) end, 'git files in cwd' },
+        { '<C-f>o', function() builtin.oldfiles() end, 'old files' },
+        { '<C-f>b', function() builtin.buffers() end, 'files from open buffers' },
+        { '<C-f>s', function() builtin.find_files({ prompt_title = 'find sibling files', cwd = vim.fn.expand('%:p:h') }) end, 'sibling files' },
+        { '<C-f>t', function() builtin.find_files({ prompt_title = 'test files', find_command = { 'fd', '-e', 'test.js' } }) end, 'find test files' },
+        { '<C-f>n', function() builtin.find_files({ prompt_title = 'non-test files', find_command = { 'fd', '-E', '*test.js' } }) end, 'find non-test files' },
+
+        { '<C-s>l', function() builtin.lsp_references() end, 'lsp references' },
+        { '<C-s>k', function() builtin.keymaps() end, 'lsp references' },
+        { '<C-s>h', function() builtin.help_tags({}) end, 'help' },
+        { '<C-s>w', function() builtin.grep_string({}) end, 'current word under cursor' },
+        { '<C-s>s', function() builtin.live_grep({ file_ignore_patterns = { 'package-lock.json', 'node_modules', '.git' } }) end, 'fuzzy search by grep' },
+        { '<C-s>d', function() builtin.diagnostics({}) end, 'diagnostics' },
+        { '<C-s>n', function() builtin.live_grep({ prompt_title = 'grep in non-test files', glob_pattern = '!*.test.js' }) end, 'grep word in non-test files' },
+        { '<C-s>t', function() builtin.live_grep({ prompt_title = 'grep in test files', glob_pattern = '*.test.js' }) end, 'grep word in test files' },
+        { '<C-s>z', function() builtin.resume({ noremap = true, silent = true }) end, 'resume grep' },
+
+        { '<C-g>s', '<cmd>Telescope git_status<cr>', 'git status' },
+        { '<C-g>c', '<cmd>Telescope git_bcommits<cr>', 'git buffer commits' },
+
+        -- {
+        --   '<leader>rg',
+        --   function() require('telescope').extensions.live_grep_args.live_grep_args() end,
+        --   'live grep searchy',
+        -- },
       }
 
       for i, km in ipairs(keys) do
