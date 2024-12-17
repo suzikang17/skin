@@ -1,9 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/.config ~/code ~/pspace -mindepth 1 -maxdepth 1 -type d | fzf)
+    one_depth_dirs=$(find ~/pspace ~/code ~/.config ~/services/modules -maxdepth 1 -mindepth 1 -type d)
+    plus_services="$one_depth_dirs \n$(find ~/services -maxdepth 0)"
+    selected=$(echo $plus_services | fzf)
 fi
 
 if [[ -z $selected ]]; then

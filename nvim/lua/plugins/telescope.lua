@@ -28,7 +28,7 @@ return {
             filesize_limit = 0.1, -- MB
           },
           -- ignore these files when using telscope file finders
-          file_ignore_patterns = { '^package-lock.json', '.git' },
+          file_ignore_patterns = { '^package-lock.json', '.git', 'node_modules/' },
           path_display = { 'truncate ' },
           mappings = {
             i = {

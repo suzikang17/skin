@@ -1,16 +1,4 @@
 return {
-  -- {
-  --   'deparr/tairiki.nvim',
-  --   lazy = false,
-  --   priority = 1000, -- only necessary if you use tairiki as default theme
-  --   config = function()
-  --     require('tairiki').setup({
-  --       -- optional configuration here
-  --     })
-  --     require('tairiki').load() -- only necessary to use as default theme, has same behavior as ':colorscheme tairiki'
-  --   end,
-  -- },
-  -- { 'EdenEast/nightfox.nvim', config = function() vim.cmd.colorscheme('nightfox') end },
   {
     'sainnhe/gruvbox-material',
     priority = 1000,
@@ -29,24 +17,10 @@ return {
       vim.cmd('colorscheme gruvbox-material')
     end,
   },
-
-  -- { 'srcery-colors/srcery-vim', config = function() vim.cmd.colorscheme('srcery') end },
   -- {
   --   'eddyekofo94/gruvbox-flat.nvim',
   --   priority = 1000,
   --   enabled = true,
   --   config = function() vim.cmd([[colorscheme gruvbox-flat]]) end,
-  -- },
-  -- {
-  --   'neanias/everforest-nvim',
-  --   version = false,
-  --   lazy = false,
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   -- Optional; default configuration will be used if setup isn't called.
-  --   config = function()
-  --     require('everforest-nvim').setup({
-  --       -- Your config here
-  --     })
-  --   end,
   -- },
 }
